@@ -24,7 +24,6 @@ public class Main {
         System.out.println(sub.isConnected() ? "Conectado" : "Desconectado");
         
         String[][] matriz = sub.getCDProducts();
-        String[] linha;
         
         for (String[] matriz1 : matriz) {
             System.out.println(Arrays.toString(matriz1));
