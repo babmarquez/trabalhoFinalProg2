@@ -19,9 +19,20 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
  */
 public class SubmarinoAdapter implements Loja{
     private SubmarinoProducts sub;
+    private ArrayList<CD> listaCDs;
 
-    public SubmarinoAdapter() {
+    private static SubmarinoAdapter uniqueInstance;
+    
+    private SubmarinoAdapter() {
         sub = SubmarinoProducts.getInstance();
+    }
+    
+    //permite apenas uma instancia deste objeto
+    public static SubmarinoAdapter getInstance(){
+         if (uniqueInstance == null)
+            uniqueInstance = new SubmarinoAdapter();
+        
+        return uniqueInstance; 
     }
 
     @Override
@@ -42,12 +53,19 @@ public class SubmarinoAdapter implements Loja{
 
     @Override
     public Collection procurar(String chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<CD> cdsBusca = new ArrayList();
+        
+        for (CD cd : listaCDs) {
+            if (cd.equals(chave))
+                cdsBusca.add(cd);
+        }
+        
+        return cdsBusca;
     }
 
     @Override
     public Collection ler() {
-        ArrayList<CD> listaCDs = new ArrayList();
+        listaCDs = new ArrayList();
         
         String[][] informacoesCDs = null;
         try {

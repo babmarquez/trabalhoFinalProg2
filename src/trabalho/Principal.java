@@ -5,17 +5,20 @@
  */
 package trabalho;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author anaFidelis
  */
 public class Principal extends javax.swing.JFrame {
-
+    public PesquisaPrecosFacade pesquisa = new PesquisaPrecosFacade();
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        pesquisa.ler();
     }
 
     /**
@@ -33,7 +36,7 @@ public class Principal extends javax.swing.JFrame {
         edChavePesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txCDs = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         lbImagemLupa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -54,10 +57,10 @@ public class Principal extends javax.swing.JFrame {
         pnPrincipal.setBackground(new java.awt.Color(59, 174, 231));
         pnPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTitulo.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lbTitulo.setFont(new java.awt.Font("Cordia New", 1, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Consulta de preços");
-        pnPrincipal.add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        pnPrincipal.add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         edChavePesquisa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         edChavePesquisa.setForeground(new java.awt.Color(102, 102, 102));
@@ -69,22 +72,27 @@ public class Principal extends javax.swing.JFrame {
         pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 453, -1));
 
         btPesquisar.setText("OK");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
         pnPrincipal.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("oioioio\n");
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        txCDs.setColumns(20);
+        txCDs.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txCDs.setForeground(new java.awt.Color(153, 153, 153));
+        txCDs.setRows(5);
+        txCDs.setText("oioioio\n");
+        txCDs.setEnabled(false);
+        jScrollPane1.setViewportView(txCDs);
 
         pnPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 506, 183));
 
         jPanel2.setLayout(new javax.swing.OverlayLayout(jPanel2));
         pnPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 32, -1, -1));
 
-        lbImagemLupa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\lupa.png")); // NOI18N
+        lbImagemLupa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\lupa2.png")); // NOI18N
         pnPrincipal.add(lbImagemLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 30, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\logoSubmarino.png")); // NOI18N
@@ -94,7 +102,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,6 +115,20 @@ public class Principal extends javax.swing.JFrame {
     private void edChavePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edChavePesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edChavePesquisaActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        ArrayList<CD> result = new ArrayList();
+        
+        if (edChavePesquisa.getText() != "")
+           result = (ArrayList<CD>) pesquisa.pesquisar(edChavePesquisa.getText());
+        
+        String cds = "";
+        for (CD cd : result){
+            cds += cd.toString();
+        }
+        
+        txCDs.setText(cds);
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,9 +172,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbImagemLupa;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JTextArea txCDs;
     // End of variables declaration//GEN-END:variables
 }

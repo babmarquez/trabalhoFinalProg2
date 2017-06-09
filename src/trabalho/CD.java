@@ -62,4 +62,17 @@ public class CD {
         this.loja = loja;
     }
     
+    //vai verificar se a chave passada esta contida no titulo ou na banda
+    public boolean equals(String chave){
+        return ((getTitulo().toUpperCase().contains(chave.toUpperCase())) || 
+                (getBanda().toUpperCase().contains(chave.toUpperCase())));
+    }
+
+    @Override
+    public String toString() {
+        return "Título do CD: " + titulo + " - banda/artista: " + banda + " - R$" + preco + " - Loja: " + loja + "\n";
+    }
+    
+    
+    
 }

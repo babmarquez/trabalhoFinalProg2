@@ -6,17 +6,24 @@
 
 package trabalho;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  *
  * @author anaFidelis
  */
-public class PesquisaPrecosFacade {
-    public void pesquisar(String chave){
-        Loja sub = new SubmarinoAdapter();
-        Loja som = new SomLivreAdapter();
+public class PesquisaPrecosFacade {    
+    public Collection pesquisar(String chave){
+        ArrayList<CD> result = new ArrayList();
         
-        sub.procurar(chave);
-        som.procurar(chave);
+        Loja sub = SubmarinoAdapter.getInstance();
+        Loja som = SomLivreAdapter.getInstance();        
+        
+        result.addAll(som.procurar(chave));
+        result.addAll(sub.procurar(chave));
+        
+        return result;
     }
     
     public void salvar(){
@@ -24,8 +31,11 @@ public class PesquisaPrecosFacade {
     }
     
     public void ler(){
-        Loja sub = new SubmarinoAdapter();
-        Loja som = new SomLivreAdapter();
+        Loja sub = SubmarinoAdapter.getInstance();
+        Loja som = SomLivreAdapter.getInstance();
+        
+        sub.conectar("furb", "furb");
+        som.conectar("furb", "furb");
         
         sub.ler();
         som.ler();

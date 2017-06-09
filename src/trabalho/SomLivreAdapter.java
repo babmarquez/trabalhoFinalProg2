@@ -9,6 +9,7 @@ package trabalho;
 import conexao.SomLivreServidor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -16,9 +17,20 @@ import java.util.Collection;
  */
 public class SomLivreAdapter implements Loja{
     private SomLivreServidor som;
+    private ArrayList<CD> listaCDs;
+    
+    private static SomLivreAdapter uniqueInstance;
 
-    public SomLivreAdapter() {
+    private SomLivreAdapter() {
         som = new SomLivreServidor();
+    }
+    
+    //permite apenas uma instancia deste objeto
+    public static SomLivreAdapter getInstance(){
+         if (uniqueInstance == null)
+            uniqueInstance = new SomLivreAdapter();
+        
+        return uniqueInstance; 
     }
 
     @Override
@@ -33,18 +45,25 @@ public class SomLivreAdapter implements Loja{
 
     @Override
     public Collection procurar(String chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<CD> cdsBusca = new ArrayList();
+        
+        for (CD cd : listaCDs) {
+            if (cd.equals(chave))
+                cdsBusca.add(cd);
+        }
+        
+        return cdsBusca;
     }
 
     @Override
     public Collection ler() {
-        ArrayList<CD> listaCDs = new ArrayList();
+        listaCDs = new ArrayList();
         
         String[] informacoesCDs = som.buscaCD();
         
         //percorre todo o vetor, quebra a string com as informaçoes, cria o objeto CD e adiciona na lista
         for (String informacoesCD : informacoesCDs) {            
-            String[] valores = informacoesCD.split("|");
+            String[] valores = informacoesCD.split(Pattern.quote("|"));
             CD cd = new CD(valores[0], valores[1], Double.parseDouble(valores[2]), "Som Livre");
             listaCDs.add(cd);
         }
