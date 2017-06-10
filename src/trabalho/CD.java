@@ -10,7 +10,7 @@ package trabalho;
  *
  * @author anaFidelis
  */
-public class CD {
+public class CD implements Comparable{
     private String titulo;
     private String banda;
     private double preco;
@@ -71,6 +71,21 @@ public class CD {
     @Override
     public String toString() {
         return "Título do CD: " + titulo + " - banda/artista: " + banda + " - R$" + preco + " - Loja: " + loja + "\n";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        CD cd = (CD) o;
+		
+	if(this.getPreco() > cd.getPreco()){
+            return 1;
+	}else{
+            if(this.getPreco() < cd.getPreco()){
+		return -1;
+            }else{
+                return 0;
+            }
+	}
     }
     
     

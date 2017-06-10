@@ -6,6 +6,8 @@
 package trabalho;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,11 +37,12 @@ public class Principal extends javax.swing.JFrame {
         lbTitulo = new javax.swing.JLabel();
         edChavePesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txCDs = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         lbImagemLupa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbCDs = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,7 +72,7 @@ public class Principal extends javax.swing.JFrame {
                 edChavePesquisaActionPerformed(evt);
             }
         });
-        pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 453, -1));
+        pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 453, -1));
 
         btPesquisar.setText("OK");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,17 +80,7 @@ public class Principal extends javax.swing.JFrame {
                 btPesquisarActionPerformed(evt);
             }
         });
-        pnPrincipal.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
-
-        txCDs.setColumns(20);
-        txCDs.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txCDs.setForeground(new java.awt.Color(153, 153, 153));
-        txCDs.setRows(5);
-        txCDs.setText("oioioio\n");
-        txCDs.setEnabled(false);
-        jScrollPane1.setViewportView(txCDs);
-
-        pnPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 506, 183));
+        pnPrincipal.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
 
         jPanel2.setLayout(new javax.swing.OverlayLayout(jPanel2));
         pnPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 32, -1, -1));
@@ -98,6 +91,40 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\logoSubmarino.png")); // NOI18N
         pnPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 260, 190, 60));
 
+        jComboBox1.setForeground(new java.awt.Color(102, 102, 102));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordem crescente de valor", "Ordem decrescente de valor", "Ordem alfabética pelo nome do álbum e crescente de valor", "Ordem alfabética pelo nome do artista/banda e decrescente de valor" }));
+        pnPrincipal.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 510, 20));
+
+        tbCDs.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tbCDs.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        tbCDs.setForeground(new java.awt.Color(102, 102, 102));
+        tbCDs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Titulo do CD", "Banda/Artista", "Valor", "Loja"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbCDs);
+
+        pnPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 510, 160));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +133,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -122,12 +149,16 @@ public class Principal extends javax.swing.JFrame {
         if (edChavePesquisa.getText() != "")
            result = (ArrayList<CD>) pesquisa.pesquisar(edChavePesquisa.getText());
         
-        String cds = "";
-        for (CD cd : result){
-            cds += cd.toString();
-        }
+        //aplica a ordenaçao
+        Collections.sort(result);
         
-        txCDs.setText(cds);
+        //para adicionar os valores na tabela
+        DefaultTableModel modelo = (DefaultTableModel) tbCDs.getModel();
+        modelo.setRowCount(0);
+        
+        for (CD cd : result){
+            modelo.addRow(new Object[]{cd.getBanda(), cd.getTitulo(), cd.getPreco(), cd.getLoja()});
+        }        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     /**
@@ -168,13 +199,14 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
     private javax.swing.JTextField edChavePesquisa;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbImagemLupa;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pnPrincipal;
-    private javax.swing.JTextArea txCDs;
+    private javax.swing.JTable tbCDs;
     // End of variables declaration//GEN-END:variables
 }
