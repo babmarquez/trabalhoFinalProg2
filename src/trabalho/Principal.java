@@ -7,6 +7,7 @@ package trabalho;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,9 +41,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lbImagemLupa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbOrdem = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbCDs = new javax.swing.JTable();
+        btSalvar = new javax.swing.JButton();
+        cbPesquisasSalvas = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,11 +70,6 @@ public class Principal extends javax.swing.JFrame {
 
         edChavePesquisa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         edChavePesquisa.setForeground(new java.awt.Color(102, 102, 102));
-        edChavePesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edChavePesquisaActionPerformed(evt);
-            }
-        });
         pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 453, -1));
 
         btPesquisar.setText("OK");
@@ -89,11 +87,10 @@ public class Principal extends javax.swing.JFrame {
         pnPrincipal.add(lbImagemLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 30, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\logoSubmarino.png")); // NOI18N
-        pnPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 260, 190, 60));
+        pnPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 280, 190, 60));
 
-        jComboBox1.setForeground(new java.awt.Color(102, 102, 102));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordem crescente de valor", "Ordem decrescente de valor", "Ordem alfabética pelo nome do álbum e crescente de valor", "Ordem alfabética pelo nome do artista/banda e decrescente de valor" }));
-        pnPrincipal.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 510, 20));
+        cbOrdem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordem crescente de valor", "Ordem decrescente de valor", "Ordem alfabética pelo nome do álbum e crescente de valor", "Ordem alfabética pelo nome do artista/banda e decrescente de valor" }));
+        pnPrincipal.add(cbOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 510, 20));
 
         tbCDs.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tbCDs.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -123,7 +120,23 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbCDs);
 
-        pnPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 510, 160));
+        pnPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 510, 160));
+
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        pnPrincipal.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+
+        cbPesquisasSalvas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pesquisas salvas" }));
+        cbPesquisasSalvas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbPesquisasSalvasItemStateChanged(evt);
+            }
+        });
+        pnPrincipal.add(cbPesquisasSalvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 510, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,33 +146,27 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 339, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void edChavePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edChavePesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edChavePesquisaActionPerformed
-
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        ArrayList<CD> result = new ArrayList();
-        
-        if (edChavePesquisa.getText() != "")
-           result = (ArrayList<CD>) pesquisa.pesquisar(edChavePesquisa.getText());
-        
-        //aplica a ordenaçao
-        Collections.sort(result);
-        
-        //para adicionar os valores na tabela
-        DefaultTableModel modelo = (DefaultTableModel) tbCDs.getModel();
-        modelo.setRowCount(0);
-        
-        for (CD cd : result){
-            modelo.addRow(new Object[]{cd.getBanda(), cd.getTitulo(), cd.getPreco(), cd.getLoja()});
-        }        
+        buscaValoresTabela(edChavePesquisa.getText());
     }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        pesquisa.salvar(edChavePesquisa.getText());
+        carregaSalvos();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void cbPesquisasSalvasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPesquisasSalvasItemStateChanged
+        if (cbPesquisasSalvas.getSelectedIndex() > 0){
+            String[] valor = cbPesquisasSalvas.getSelectedItem().toString().split(Pattern.quote(" -"));
+            buscaValoresTabela(valor[0]);
+        }
+    }//GEN-LAST:event_cbPesquisasSalvasItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -195,11 +202,40 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void buscaValoresTabela(String chave){
+        ArrayList<CD> result = new ArrayList();
+        
+        if (chave != "")
+           result = (ArrayList<CD>) pesquisa.pesquisar(chave);
+        
+        //aplica a ordenaçao
+        Collections.sort(result);
+        
+        //para adicionar os valores na tabela
+        DefaultTableModel modelo = (DefaultTableModel) tbCDs.getModel();
+        modelo.setRowCount(0);
+        
+        for (CD cd : result){
+            modelo.addRow(new Object[]{cd.getBanda(), cd.getTitulo(), cd.getPreco(), cd.getLoja()});
+        } 
+    }
+    
+    private void carregaSalvos(){
+        cbPesquisasSalvas.removeAllItems();
+        cbPesquisasSalvas.addItem("Pesquisas salvas");
+        
+        pesquisa.getSalvos().forEach((String salvo) -> {
+            cbPesquisasSalvas.addItem(salvo);
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox<String> cbOrdem;
+    private javax.swing.JComboBox<String> cbPesquisasSalvas;
     private javax.swing.JTextField edChavePesquisa;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

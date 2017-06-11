@@ -6,14 +6,29 @@
 
 package trabalho;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author anaFidelis
  */
-public class PesquisaPrecosFacade {    
+public class PesquisaPrecosFacade {  
+    private Set<String> salvos;
+
+    public PesquisaPrecosFacade() {
+        this.salvos = new HashSet<>();
+    }
+
+    public Set<String> getSalvos() {
+        return salvos;
+    }   
+    
     public Collection pesquisar(String chave){
         ArrayList<CD> result = new ArrayList();
         
@@ -26,8 +41,12 @@ public class PesquisaPrecosFacade {
         return result;
     }
     
-    public void salvar(){
-        //implementaçao para salvar as pesquisas
+    public void salvar(String chave){
+        //implementaçao para salvar as pesquisas        
+        Date date = new Date();
+        DateFormat formato = new SimpleDateFormat("HH:mm");
+                
+        salvos.add(chave + " - " + formato.format(date));   
     }
     
     public void ler(){
@@ -39,5 +58,8 @@ public class PesquisaPrecosFacade {
         
         sub.ler();
         som.ler();
+        
+        //sub.desconectar();
+        //som.desconectar();
     }
 }
