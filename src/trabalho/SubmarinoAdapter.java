@@ -6,16 +6,15 @@
 
 package trabalho;
 
-import didatico.SubmarinoProducts;
+import biblioteca.SubmarinoProducts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.omg.PortableServer.POAPackage.ServantNotActive;
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
 public class SubmarinoAdapter implements Loja{
     private SubmarinoProducts sub;
@@ -23,13 +22,15 @@ public class SubmarinoAdapter implements Loja{
 
     private static SubmarinoAdapter uniqueInstance;
     
-    private SubmarinoAdapter() {
+    private SubmarinoAdapter()
+    {
         sub = SubmarinoProducts.getInstance();
     }
     
     //permite apenas uma instancia deste objeto
-    public static SubmarinoAdapter getInstance(){
-         if (uniqueInstance == null)
+    public static SubmarinoAdapter getInstance()
+    {
+        if (uniqueInstance == null)
             uniqueInstance = new SubmarinoAdapter();
         
         return uniqueInstance; 
@@ -52,27 +53,24 @@ public class SubmarinoAdapter implements Loja{
     }
 
     @Override
-    public Collection procurar(String chave) {
+    public Collection procurar(String chave)
+    {
         ArrayList<CD> cdsBusca = new ArrayList();
         
-        for (CD cd : listaCDs) {
-            if (cd.equals(chave))
-                cdsBusca.add(cd);
-        }
+        listaCDs.stream().filter((cd) -> (cd.equals(chave))).forEachOrdered((cd) -> {
+            cdsBusca.add(cd);
+        });
         
         return cdsBusca;
     }
 
     @Override
-    public Collection ler() {
+    public Collection ler()
+    {
         listaCDs = new ArrayList();
         
         String[][] informacoesCDs = null;
-        try {
-            informacoesCDs = sub.getCDProducts();
-        } catch (ServantNotActive ex) {
-            Logger.getLogger(SubmarinoAdapter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        informacoesCDs = sub.getCDProducts();
         
         //percorre toda a matriz, cria o objeto CD e adiciona na lista
         if (informacoesCDs != null){
@@ -81,10 +79,6 @@ public class SubmarinoAdapter implements Loja{
                 listaCDs.add(cd);
             }
         }
-        
         return listaCDs;
     }
-    
-    
-    
 }

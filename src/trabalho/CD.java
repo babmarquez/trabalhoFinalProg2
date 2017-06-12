@@ -8,86 +8,96 @@ package trabalho;
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
-public class CD implements Comparable{
+public class CD implements Comparable
+{
     private String titulo;
     private String banda;
     private double preco;
     private String loja;
 
-    public CD(String titulo, String banda, double preco, String loja) {
+    public CD(String titulo, String banda, double preco, String loja)
+    {
         this.titulo = titulo;
         this.banda = banda;
         this.preco = preco;
         this.loja = loja;
     }
 
-    public CD() {
+    public CD()
+    {
         this.titulo = "";
         this.banda  = "";
         this.preco  = 0;
         this.loja   = "";
     }
 
-    public String getTitulo() {
+    public String getTitulo()
+    {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(String titulo)
+    {
         this.titulo = titulo;
     }
 
-    public String getBanda() {
+    public String getBanda()
+    {
         return banda;
     }
 
-    public void setBanda(String banda) {
+    public void setBanda(String banda)
+    {
         this.banda = banda;
     }
 
-    public double getPreco() {
+    public double getPreco()
+    {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(double preco)
+    {
         this.preco = preco;
     }
 
-    public String getLoja() {
+    public String getLoja()
+    {
         return loja;
     }
 
-    public void setLoja(String loja) {
+    public void setLoja(String loja)
+    {
         this.loja = loja;
     }
     
-    //vai verificar se a chave passada esta contida no titulo ou na banda
-    public boolean equals(String chave){
+    //vai verificar se a chave passada está contida no titulo ou na banda
+    public boolean equals(String chave)
+    {
         return ((getTitulo().toUpperCase().contains(chave.toUpperCase())) || 
                 (getBanda().toUpperCase().contains(chave.toUpperCase())));
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Título do CD: " + titulo + " - banda/artista: " + banda + " - R$" + preco + " - Loja: " + loja + "\n";
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Object o)
+    {
         CD cd = (CD) o;
-		
-	if(this.getPreco() > cd.getPreco()){
+        
+	if(this.getPreco() > cd.getPreco())
+        {
             return 1;
-	}else{
-            if(this.getPreco() < cd.getPreco()){
-		return -1;
-            }else{
-                return 0;
-            }
+	}
+        else
+        {
+            return (this.getPreco() < cd.getPreco()) ? -1 : 0;
 	}
     }
-    
-    
-    
 }

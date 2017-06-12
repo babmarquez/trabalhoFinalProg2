@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
 public class Principal extends javax.swing.JFrame {
     public PesquisaPrecosFacade pesquisa = new PesquisaPrecosFacade();
@@ -60,37 +60,38 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnPrincipal.setBackground(new java.awt.Color(59, 174, 231));
+        pnPrincipal.setBackground(new java.awt.Color(204, 204, 255));
         pnPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTitulo.setFont(new java.awt.Font("Cordia New", 1, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Consulta de preços");
-        pnPrincipal.add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        pnPrincipal.add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
 
         edChavePesquisa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         edChavePesquisa.setForeground(new java.awt.Color(102, 102, 102));
-        pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 453, -1));
+        edChavePesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edChavePesquisaActionPerformed(evt);
+            }
+        });
+        pnPrincipal.add(edChavePesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 480, 30));
 
-        btPesquisar.setText("OK");
+        btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);
             }
         });
-        pnPrincipal.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
+        pnPrincipal.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 100, 30));
 
         jPanel2.setLayout(new javax.swing.OverlayLayout(jPanel2));
         pnPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 32, -1, -1));
-
-        lbImagemLupa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\lupa2.png")); // NOI18N
         pnPrincipal.add(lbImagemLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 30, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win7U\\Documents\\trabalhoFinalProg2\\img\\logoSubmarino.png")); // NOI18N
         pnPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 280, 190, 60));
 
         cbOrdem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordem crescente de valor", "Ordem decrescente de valor", "Ordem alfabética pelo nome do álbum e crescente de valor", "Ordem alfabética pelo nome do artista/banda e decrescente de valor" }));
-        pnPrincipal.add(cbOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 510, 20));
+        pnPrincipal.add(cbOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 660, 30));
 
         tbCDs.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tbCDs.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -120,7 +121,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbCDs);
 
-        pnPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 510, 160));
+        pnPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 660, 180));
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +129,7 @@ public class Principal extends javax.swing.JFrame {
                 btSalvarActionPerformed(evt);
             }
         });
-        pnPrincipal.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+        pnPrincipal.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, -1, 30));
 
         cbPesquisasSalvas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pesquisas salvas" }));
         cbPesquisasSalvas.addItemListener(new java.awt.event.ItemListener() {
@@ -136,17 +137,17 @@ public class Principal extends javax.swing.JFrame {
                 cbPesquisasSalvasItemStateChanged(evt);
             }
         });
-        pnPrincipal.add(cbPesquisasSalvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 510, 20));
+        pnPrincipal.add(cbPesquisasSalvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 660, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 339, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
 
         pack();
@@ -167,6 +168,10 @@ public class Principal extends javax.swing.JFrame {
             buscaValoresTabela(valor[0]);
         }
     }//GEN-LAST:event_cbPesquisasSalvasItemStateChanged
+
+    private void edChavePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edChavePesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edChavePesquisaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +208,8 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     
-    private void buscaValoresTabela(String chave){
+    private void buscaValoresTabela(String chave)
+    {
         ArrayList<CD> result = new ArrayList();
         
         if (chave != "")
@@ -221,7 +227,8 @@ public class Principal extends javax.swing.JFrame {
         } 
     }
     
-    private void carregaSalvos(){
+    private void carregaSalvos()
+    {
         cbPesquisasSalvas.removeAllItems();
         cbPesquisasSalvas.addItem("Pesquisas salvas");
         

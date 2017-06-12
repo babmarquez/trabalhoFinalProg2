@@ -16,20 +16,24 @@ import java.util.Set;
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
-public class PesquisaPrecosFacade {  
+public class PesquisaPrecosFacade
+{
     private Set<String> salvos;
 
-    public PesquisaPrecosFacade() {
+    public PesquisaPrecosFacade()
+    {
         this.salvos = new HashSet<>();
     }
 
-    public Set<String> getSalvos() {
+    public Set<String> getSalvos()
+    {
         return salvos;
     }   
     
-    public Collection pesquisar(String chave){
+    public Collection pesquisar(String chave)
+    {
         ArrayList<CD> result = new ArrayList();
         
         Loja sub = SubmarinoAdapter.getInstance();
@@ -41,7 +45,8 @@ public class PesquisaPrecosFacade {
         return result;
     }
     
-    public void salvar(String chave){
+    public void salvar(String chave)
+    {
         //implementaçao para salvar as pesquisas        
         Date date = new Date();
         DateFormat formato = new SimpleDateFormat("HH:mm");
@@ -49,7 +54,8 @@ public class PesquisaPrecosFacade {
         salvos.add(chave + " - " + formato.format(date));   
     }
     
-    public void ler(){
+    public void ler()
+    {
         Loja sub = SubmarinoAdapter.getInstance();
         Loja som = SomLivreAdapter.getInstance();
         

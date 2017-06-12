@@ -9,54 +9,57 @@ package trabalho;
 import conexao.SomLivreServidor;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.regex.Pattern;
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
-public class SomLivreAdapter implements Loja{
+public class SomLivreAdapter implements Loja
+{
     private SomLivreServidor som;
     private ArrayList<CD> listaCDs;
     
     private static SomLivreAdapter uniqueInstance;
 
-    private SomLivreAdapter() {
+    private SomLivreAdapter()
+    {
         som = new SomLivreServidor();
     }
     
     //permite apenas uma instancia deste objeto
-    public static SomLivreAdapter getInstance(){
-         if (uniqueInstance == null)
+    public static SomLivreAdapter getInstance()
+    {
+        if (uniqueInstance == null)
             uniqueInstance = new SomLivreAdapter();
         
         return uniqueInstance; 
     }
 
     @Override
-    public boolean conectar(String usuario, String senha) {
+    public boolean conectar(String usuario, String senha)
+    {
         return som.registrar(usuario);
     }
 
     @Override
-    public void desconectar() {
+    public void desconectar()
+    {
         //nao ha metodo de desconectar
     }
 
     @Override
-    public Collection procurar(String chave) {
-        ArrayList<CD> cdsBusca = new ArrayList();
-        
-        for (CD cd : listaCDs) {
-            if (cd.equals(chave))
-                cdsBusca.add(cd);
-        }
-        
+    public Collection procurar(String chave)
+    {
+        ArrayList<CD> cdsBusca = new ArrayList();    
+        listaCDs.stream().filter((cd) -> (cd.equals(chave))).forEachOrdered((cd) -> {
+            cdsBusca.add(cd);
+        });
         return cdsBusca;
     }
 
     @Override
-    public Collection ler() {
+    public Collection ler()
+    {
         listaCDs = new ArrayList();
         
         String[] informacoesCDs = som.buscaCD();
@@ -70,6 +73,4 @@ public class SomLivreAdapter implements Loja{
         
         return listaCDs;
     }
-    
-    
 }

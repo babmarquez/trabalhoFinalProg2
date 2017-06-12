@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,19 +7,19 @@
 
 package trabalho;
 
-import didatico.SubmarinoProducts;
+/*import didatico.SubmarinoProducts;
 import conexao.SomLivreServidor;
-import java.util.Arrays;
+import java.util.Arrays;*/
 
 /**
  *
- * @author anaFidelis
+ * @author Ana Paula Fidelis e Bárbara Marquez
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        SubmarinoProducts sub = SubmarinoProducts.getInstance();
+        //SubmarinoProducts sub = SubmarinoProducts.getInstance();
         
-        sub.connect("furb", "furb");
+        /*sub.connect("furb", "furb");
         
         System.out.println(sub.isConnected() ? "Conectado" : "Desconectado");
         
@@ -51,7 +51,6 @@ public class Main {
             Todas as pesquisas vao ser salvas para possivel consulta posterior com, CHAVE e DATA/HORA (Onde e como armazenar?)
             Deve ter interface grafica
             A busca sera feita pelo nome do ALBUM ou ARTISTA
-        */
-        
+        */       
     }
 }
