@@ -9,10 +9,11 @@ package trabalho;
 import conexao.SomLivreServidor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 /**
  *
- * @author Ana Paula Fidelis e Bárbara Marquez
+ * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
 public class SomLivreAdapter implements Loja
 {

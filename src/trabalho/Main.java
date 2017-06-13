@@ -13,10 +13,13 @@ import java.util.Arrays;*/
 
 /**
  *
- * @author Ana Paula Fidelis e Bárbara Marquez
+ * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
-public class Main {
-    public static void main(String[] args) throws Exception {
+public class Main
+{
+    /* Classe apenas para teste */
+    public static void main(String[] args) throws Exception
+    {
         //SubmarinoProducts sub = SubmarinoProducts.getInstance();
         
         /*sub.connect("furb", "furb");

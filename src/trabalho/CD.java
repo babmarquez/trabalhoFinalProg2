@@ -8,9 +8,9 @@ package trabalho;
 
 /**
  *
- * @author Ana Paula Fidelis e Bárbara Marquez
+ * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
-public class CD implements Comparable
+public class CD implements Comparable<CD>
 {
     private String titulo;
     private String banda;
@@ -19,6 +19,7 @@ public class CD implements Comparable
 
     public CD(String titulo, String banda, double preco, String loja)
     {
+        super();
         this.titulo = titulo;
         this.banda = banda;
         this.preco = preco;
@@ -87,16 +88,13 @@ public class CD implements Comparable
     }
 
     @Override
-    public int compareTo(Object o)
+    public int compareTo(CD o)
     {
         CD cd = (CD) o;
-        
-	if(this.getPreco() > cd.getPreco())
-        {
+	if(this.getPreco() > cd.getPreco()) {
             return 1;
 	}
-        else
-        {
+        else {
             return (this.getPreco() < cd.getPreco()) ? -1 : 0;
 	}
     }

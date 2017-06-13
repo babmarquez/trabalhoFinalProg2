@@ -6,6 +6,8 @@
 
 package trabalho;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,28 +18,29 @@ import java.util.Set;
 
 /**
  *
- * @author Ana Paula Fidelis e Bárbara Marquez
+ * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
 public class PesquisaPrecosFacade
 {
-    private Set<String> salvos;
+    private ArrayList<ResultadoPesquisa> pesquisas;
+    private final Path pathArq = Paths.get("formas.dat");
 
     public PesquisaPrecosFacade()
     {
-        this.salvos = new HashSet<>();
+        this.pesquisas = PersistenciaPesquisa.carregarPesquisas(pathArq);
     }
 
-    public Set<String> getSalvos()
+    public ArrayList<ResultadoPesquisa> getSalvos()
     {
-        return salvos;
-    }   
+        return pesquisas;
+    }
     
     public Collection pesquisar(String chave)
     {
         ArrayList<CD> result = new ArrayList();
         
         Loja sub = SubmarinoAdapter.getInstance();
-        Loja som = SomLivreAdapter.getInstance();        
+        Loja som = SomLivreAdapter.getInstance();
         
         result.addAll(som.procurar(chave));
         result.addAll(sub.procurar(chave));
@@ -45,13 +48,9 @@ public class PesquisaPrecosFacade
         return result;
     }
     
-    public void salvar(String chave)
+    public void salvar(String chave, int ordem)
     {
-        //implementaçao para salvar as pesquisas        
-        Date date = new Date();
-        DateFormat formato = new SimpleDateFormat("HH:mm");
-                
-        salvos.add(chave + " - " + formato.format(date));   
+        pesquisas.add(new Pesquisa(chave, ordem));
     }
     
     public void ler()

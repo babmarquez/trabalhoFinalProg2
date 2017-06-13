@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package trabalho;
 
-import java.util.Collection;
+import java.io.Serializable;
 
 /**
  *
  * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
-public interface Loja
-{
-    public boolean conectar(String usuario, String senha);
-    public void desconectar();
-    public Collection procurar(String chave);
-    public Collection ler();
-}
+abstract class ResultadoPesquisa implements Serializable { }

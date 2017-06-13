@@ -6,15 +6,16 @@
 
 package trabalho;
 
-import biblioteca.SubmarinoProducts;
+import didatico.SubmarinoProducts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.omg.PortableServer.POAPackage.ServantNotActive;
 
 /**
  *
- * @author Ana Paula Fidelis e Bárbara Marquez
+ * @author Ana Paula Fidelis, Bárbara Marquez e Dener de Souza
  */
 public class SubmarinoAdapter implements Loja{
     private SubmarinoProducts sub;
@@ -68,9 +69,13 @@ public class SubmarinoAdapter implements Loja{
     public Collection ler()
     {
         listaCDs = new ArrayList();
-        
         String[][] informacoesCDs = null;
-        informacoesCDs = sub.getCDProducts();
+        
+        try {
+            informacoesCDs = sub.getCDProducts();
+        } catch (ServantNotActive ex) {
+            Logger.getLogger(SubmarinoAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //percorre toda a matriz, cria o objeto CD e adiciona na lista
         if (informacoesCDs != null){
